@@ -1,11 +1,72 @@
 #title{
-  color: blue;
-  text-align: center;
-  background-color: #34e5eb
-  width: 50%;
+	font-family: 'monaco', monospace;
+	color: blue;
+	text-align: center;
+	background: #34e5eb;
+	width: 50%;
+	margin: auto;
+	padding: 30px;
+	margin-bottom: 10px;
+	text-shadow: 2px 2px #053f52;
 
 }
 
 .hidden{
-  display: none;
+  	display: none;
+}
+
+
+#info{
+	text-align: center;
+	background: #38c6f5;
+	width: 75%;
+	padding: 30px;
+	height: 20%;
+	margin: auto;
+	border: 5px solid black;
+	border-radius: 10px;
+	font-size: 20px;
+}
+.text{
+	text-align: center;
+}
+#input{
+	text-align: center;
+	background: #38c6f5;
+	width: 75%;
+	height: 50%;
+	border: 5px solid black;
+	border-radius: 10px;
+	padding: 30px;
+	margin: auto;
+}
+button{
+	background-color: #34e5eb;
+	color: black;
+	font-size: 20px;
+	border-radius: 10px;
+	display: inline-block;
+}
+#content{
+	text-align: center;
+	width: 25%;
+	margin: auto;
+	align-content: center;
+	background: #38c6f0;
+
+}
+#output{
+	text-align: center;
+	width: 25%;
+	margin: auto;
+	background: #38c6f5;
+	height: 20%;
+
+
+}
+input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px;
+  box-sizing: border-box;
 }
