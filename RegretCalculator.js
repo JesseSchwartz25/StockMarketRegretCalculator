@@ -78,7 +78,9 @@
 
       //if all above conditions are met, add it to the list
       let newStock = document.createElement('li');
-      newStock.textContent = stockName.children[0].value + ': $' + invested.children[0].value + ' on ' + date.value;
+      let easyDate = date.value.split('-');
+      let readyDate = easyDate[1] + '/' +easyDate[2]+'/'+easyDate[0];
+      newStock.textContent = stockName.children[0].value + ': $' + invested.children[0].value + ' on ' + readyDate;
       content.appendChild(newStock);
 
       stockName.children[0].textContent = '';
@@ -99,7 +101,7 @@
 
     addbtn.classList.remove('hidden');
     rmvbtn.classList.add('hidden');
-    calculate.classList.add('hidden')
+    calculate.classList.add('hidden');
     let date = id("date");
     let stockName = id('stock-input');
     let content = id('content');
@@ -132,7 +134,13 @@
 
     // let url = URL + this.value; // put url string here
     //test url, demo gives weekly IBM prices
-    let url = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=IBM&apikey=demo';
+    let stockName = id('stock-input');
+    let url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + stockName.children[0].value + '&outputsize=full&apikey=' + APIkey;
+    // IBM&apikey=demo;
+
+    console.log(url);
+
+
     fetch(url, {
         credentials: 'omit'
       }) // include credentials for cloud9
@@ -152,8 +160,8 @@
 
         // console.log(date.value, ret["Weekly Time Series"][dateval]["1. open"]);
 
-        let startPrice = ret["Weekly Time Series"][dateval]["1. open"];
-        let endPrice = ret["Weekly Time Series"][endval]["1. open"];
+        let startPrice = ret["Time Series (Daily)"][dateval]["5. adjusted close"];
+        let endPrice = ret["Time Series (Daily)"][endval]["1. open"];
 
         let ratio = endPrice / startPrice;
 
@@ -163,7 +171,26 @@
 
         let endMoney = startMoney * ratio;
 
+        endMoney = Math.ceil(endMoney * 100) /100;
+        startPrice = Math.ceil(startPrice * 100)/100;
+
         console.log(startPrice, endPrice, startMoney, endMoney);
+
+        let easyDate = date.value.split('-');
+
+        let readyDate = easyDate[1] + '/' +easyDate[2]+'/'+easyDate[0];
+
+
+
+        let displayRegret = document.createElement('p');
+
+        let pcontent = 'If you had invested $' + startMoney + ' on ' +readyDate + ' in ' + id('stock-input').children[0].value + ' at $' + startPrice +' you would have $' + endMoney+ ' today.';
+
+        displayRegret.textContent = pcontent;
+        console.log(pcontent);
+
+        id('output').append(displayRegret);
+
 
 
 
