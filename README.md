@@ -14,4 +14,4 @@ More information about the AlphaVantage API can be found
 
 ### Future features
 
-In the future, I would like to add a few features. They include, but are not limited to: tracking a cumulative total of money gained/lost, turning that number into a 'regret score' to help gamify the website, adding the ability to submit multiple stocks at once (this is more a problem with the free API key than anything)
+In the future, I would like to add a few features. They include, but are not limited to: tracking a cumulative total of money gained/lost, turning that number into a 'regret score' to help gamify the website, adding the ability to submit multiple stocks at once (this is more a problem with the free API key than anything), and learning more about the API to deal with unexpected cases, allowing the user to input any date, rather than just Fridays.
