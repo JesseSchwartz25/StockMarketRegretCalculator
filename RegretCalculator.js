@@ -6,25 +6,23 @@
   let APIkey = 'J2KCGNYWXBE3K3OD';
 
   window.onload = function() {
-    //your code goes here.
 
     //so that the user can input their data
     let addbtn = id("add-btn");
     addbtn.onclick = addStock;
-
     let rmvbtn = id("rmv-btn");
     rmvbtn.onclick = rmvStock;
     rmvbtn.classList.add('hidden');
-
     let date = id("date");
-
     let endDate = id('enddate');
+
+    //this is so that the API is more likely to have the date provided by the user
     endDate.defaultValue = '2021-04-29';
     endDate.step = 7;
     endDate.max = '2021-04-29';
 
 
-    //date must be a friday for the data to work
+    //date must be a weekday for the data to work, fridays are weekdays
     date.step = 7;
     date.max = '2021-04-29';
     let stockName = id('stock-input');
@@ -34,8 +32,9 @@
     calculate.onclick = makeRequest;
 
     let invested = id('amountinvested');
-    invested.children[0].defaultValue = '100';
 
+    //default values so that the API works, give the user an idea of how the website works
+    invested.children[0].defaultValue = '100';
     stockName.children[0].defaultValue = 'IBM';
 
 
@@ -54,7 +53,7 @@
 
 
     if (stockName.children[0].value == '') {
-      //make sure they have a stock name
+      //make sure they have a stock name if they delete IBM
       alert('Please input a stock name');
 
     } else if (invested.children[0].value == '') {
@@ -84,6 +83,8 @@
       content.appendChild(newStock);
 
       stockName.children[0].textContent = '';
+
+      //remove the ability to add more stocks, add the ability to calculate or remove a stock
       addbtn.classList.add('hidden');
       rmvbtn.classList.remove('hidden');
       id('calculate').classList.remove('hidden');
@@ -95,9 +96,14 @@
   }
 
   function rmvStock() {
+
+    //a lot of this is bloat at its current state, but if we add features back in then it will be necessary.
+
     let addbtn = id("add-btn");
     let rmvbtn = id("rmv-btn");
     let calculate = id("calculate");
+
+    //add back the ability to add stock, remove ability to remove stock and calculate
 
     addbtn.classList.remove('hidden');
     rmvbtn.classList.add('hidden');
@@ -106,6 +112,8 @@
     let stockName = id('stock-input');
     let content = id('content');
     let invested = id('amountinvested');
+
+    //remove the stock
 
     content.removeChild(content.children[1]);
 
@@ -130,13 +138,11 @@
 
 
   function makeRequest() {
-    // console.log(this.value);
+    // call the alphavantage API to get stock info
 
-    // let url = URL + this.value; // put url string here
-    //test url, demo gives weekly IBM prices
     let stockName = id('stock-input');
     let url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + stockName.children[0].value + '&outputsize=full&apikey=' + APIkey;
-    // IBM&apikey=demo;
+    // IBM&apikey=demo; for testing purposes, use this url instead to save key uses
 
     console.log(url);
 
@@ -151,17 +157,18 @@
 
         let ret = JSON.parse(responseText);
 
-        // for(let i = 0; i < ret[1].length; i++){
-        //
-        // }
         let endDate = id('enddate');
         let dateval = date.value;
         let endval = endDate.value;
 
         // console.log(date.value, ret["Weekly Time Series"][dateval]["1. open"]);
 
+        // retrieving stock data
+
         let startPrice = ret["Time Series (Daily)"][dateval]["5. adjusted close"];
         let endPrice = ret["Time Series (Daily)"][endval]["1. open"];
+
+        // calculating and displaying money made
 
         let ratio = endPrice / startPrice;
 
@@ -179,8 +186,6 @@
         let easyDate = date.value.split('-');
 
         let readyDate = easyDate[1] + '/' +easyDate[2]+'/'+easyDate[0];
-
-
 
         let displayRegret = document.createElement('p');
 
