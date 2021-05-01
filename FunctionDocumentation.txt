@@ -1,0 +1,28 @@
+Here is what all of the functions do. The program is not too complicated at the moment because we spent a lot of our time dealing with learning how to implement the API.
+
+
+window.onload:
+
+This function loads in all of the basic assets. All of the buttons, input fields, and calendars are loaded with their functions, default values, and CSS classes.
+
+addStock:
+
+This function takes the value from the input fields initialized earlier and put the user's data into an easy to understand line of text. It is accessed by the user clicking on the 'Add' button. The function will only complete if all fields are full. if any of the fields are empty, it will pop up an alert telling the user what is wrong and the user will have to try again. if successful, it also modifies CSS classlists of HTML elements so that only one stock can be added at a time. This is done because of limitations in the API's free key and not any other reason.
+
+rmvStock:
+
+This is a simple function that will remove the currently added stock. It is easily expandable to be able to remove a specific stock (in fact, that is the way it was written), but again the API limitations caused this function to lose some features. This function also addresses classlists. It can only be accessed by clicking on the 'Remove' button, which only appears after a stock has been added.
+
+
+makeRequest:
+
+This stock calls the API via AJAX and Fetch. It is only accessible by clicking on the 'Calculate' button which is only visible when there is a stock added. It calls the AlphaVantage API's TIME-TIME_SERIES_DAILY_ADJUSTED function, which takes in the stock ticker, and API keys as arguments. The API returns all daily data of the stock from the past 20 or so years (depends on the stock). Then, using data input by the user earlier to load the stock data and calculate how much money they would have made.
+
+
+checkStatus:
+
+This works with the AJAX/Fetch calls in makeRequest to ensure that no errors are passed through.
+
+id:
+
+This function is a shorthand function. It returns document.getElementById(name) so that the user doesn't have to type that whole thing out every time.
